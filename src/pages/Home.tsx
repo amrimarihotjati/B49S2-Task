@@ -1,5 +1,67 @@
 import React from 'react';
 
+
+//DummyData
+interface DummyItem {
+    id: number;
+    name: string;
+    badge: string;
+    description: string;
+    categories: string[];
+    imageUrl: string;
+}
+
+const dummyData: DummyItem[] = [
+    {
+      id: 1,
+      name: 'American Heritage Chocolate',
+      badge: 'NEW',
+      description: 'Kue dengan citarasa ala Amerika, dibalut dengan coklat yang lumer dan kaya, dan dibuat dengan bahan - bahan pilihan.',
+      categories: ['Cake', 'Chocolate'],
+      imageUrl: 'https://micro-frontend-one.vercel.app/american-heritage-chocolate-vdx5hPQhXFk-unsplash.jpg',
+    },
+    {
+      id: 2,
+      name: 'White Bread',
+      badge: 'NEW',
+      description: 'Roti tawar yang gak bisa di tawar harganya tapi bisa ditaburi dengan meses ataupun selai agar rasanya semakin gurih dan manis, cocok untuk sarapan pagi.',
+      categories: ['Breads'],
+      imageUrl: 'https://micro-frontend-one.vercel.app/charles-chen-w2ZFjDnUL3w-unsplash.jpg',
+    },
+    {
+      id: 3,
+      name: 'Chocolate Cake',
+      badge: 'NEW',
+      description: 'Kue coklat dengan rasa manis dan gurih, dibalut pula dengan saus coklat yang nikmat, memanjakan lidah kamu.',
+      categories: ['Cake', 'Chocolate'],
+      imageUrl: 'https://micro-frontend-one.vercel.app/chocolate-cake-with-chocolate-sprinkles.jpg',
+    },
+    {
+        id: 4,
+        name: 'Croissants',
+        badge: 'NEW',
+        description: 'Kue dengan rasa yang renyah dan gurih, pilihan yang menarik dipadukan dengan kopi ataupun teh, rasa yang dapat memanjakan lidah.',
+        categories: ['Bread', 'Favorite'],
+        imageUrl: 'https://micro-frontend-one.vercel.app/conor-brown-sqkXyyj4WdE-unsplash.jpg',
+    },
+    {
+        id: 5,
+        name: 'Strawberry Shortcake',
+        badge: 'NEW',
+        description: 'Kue manis dengan baluran saus stroberi yang manis, membuat rasanya menggugah selera, kue yang layak dijadikan buah tangan.',
+        categories: ['Bread', 'New'],
+        imageUrl: 'https://micro-frontend-one.vercel.app/cute-mini-strawberry-shortcake-pink.jpg',
+    },
+    {
+        id: 5,
+        name: 'Mie Goreng Pedas',
+        badge: 'NEW',
+        description: 'Makanan yang bisa kamu jadikan cemilan ataupun penghilang rasa lapar, cocok untuk kamu yang malas memasak dan ingin yang instan.',
+        categories: ['Bread', 'Favorite'],
+        imageUrl: 'https://micro-frontend-one.vercel.app/ikhsan-baihaqi-RwAXb8Hv_sU-unsplash.jpg',
+    }
+];
+
 interface State {
     selectedTags: string[];
     selectedCategories: string[];
@@ -50,6 +112,15 @@ export default class Home extends React.Component<string, State>{
                 <div className='flex flex-wrap flex-row justify-center'>
                     <div className='flex flex-wrap flex-row justify-center'>
                         <div className='flex flex-wrap flex-row justify-center'>
+                            {/* Search */}
+                            <div className="form-control ml-10 mr-10 mt-7">
+                                <div className="input-group">
+                                    <input type="text" placeholder="Search…" className="input input-bordered" />
+                                    <button className="btn btn-outline btn-success" onClick={(e) => this.handleSubmit(e)}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                                    </button>
+                                </div>
+                            </div>
                             <div className='ml-10 mr-10'>
                                 <div className="collapse collapse-arrow mt-5 w-full border border-base-300 bg-base-200">
                                     <input type="radio" name="my-accordion-2" />
@@ -119,10 +190,6 @@ export default class Home extends React.Component<string, State>{
                                 </div>  
                             </div>
                         </div>
-                        <button 
-                            className="btn btn-outline btn-success mt-7" 
-                            onClick={(e) => this.handleSubmit(e)}> 
-                            Submit </button>
                     </div>
                 </div>
                 <div>
@@ -130,48 +197,27 @@ export default class Home extends React.Component<string, State>{
                         <h1 className='font-bold text-3xl text-indigo-600'>Cakes</h1>
                     </div>
                     {/* Card */}
-                    <div className='flex flex-wrap flex-row space-x-12 justify-center mb-20'>
-                        <div className="card w-96 bg-base-100 shadow-xl mt-10">
-                            <figure><img src="https://micro-frontend-one.vercel.app/american-heritage-chocolate-vdx5hPQhXFk-unsplash.jpg" alt="Shoes" /></figure>
+                    <div className='flex flex-wrap flex-row space-x-12 justify-center mb-20 ml-5 mr-5'>
+                    {/* Loop melalui data dummy dan render card untuk setiap objek */}
+                    {dummyData.map((item) => (
+                        <div key={item.id} className="card w-96 bg-base-100 shadow-xl mt-10">
+                            <figure>
+                                <img src={item.imageUrl} alt={item.name} />
+                            </figure>
                             <div className="card-body">
-                                <h2 className="card-title">
-                                American Heritage Chocolate
-                                <div className="badge badge-secondary">NEW</div>
-                                </h2>
-                                <p>Kue dengan citarasa ala amerika, dibalut dengan coklat yang lumer dan kaya, dan dibuat dengan bahan - bahan pilihan.</p>
-                                <div className="card-actions justify-end">
-                                <div className="badge badge-outline">Cake</div> 
-                                <div className="badge badge-outline">Chocolate</div>
-                                </div>
+                            <h2 className="card-title">
+                                {item.name}
+                                <div className="badge badge-secondary">{item.badge}</div>
+                            </h2>
+                            <p>{item.description}</p>
+                            <div className="card-actions justify-end">
+                                {item.categories.map((category) => (
+                                <div key={category} className="badge badge-outline">{category}</div>
+                                ))}
+                            </div>
                             </div>
                         </div>
-                        <div className="card w-96 bg-base-100 shadow-xl mt-10">
-                            <figure><img src="https://micro-frontend-one.vercel.app/charles-chen-w2ZFjDnUL3w-unsplash.jpg" alt="Shoes" /></figure>
-                            <div className="card-body">
-                                <h2 className="card-title">
-                                White Bread
-                                <div className="badge badge-secondary">NEW</div>
-                                </h2>
-                                <p>Roti tawar yang gak bisa di tawar harganya tapi bisa ditaburi dengan meses ataupun selai agar rasanya semakin gurih dan manis, cocok untuk sarapan pagi.</p>
-                                <div className="card-actions justify-end">
-                                <div className="badge badge-outline">Breads</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="card w-96 bg-base-100 shadow-xl mt-10">
-                            <figure><img src="https://micro-frontend-one.vercel.app/chocolate-cake-with-chocolate-sprinkles.jpg" alt="Shoes" /></figure>
-                            <div className="card-body">
-                                <h2 className="card-title">
-                                Chocolate Cake
-                                <div className="badge badge-secondary">NEW</div>
-                                </h2>
-                                <p>Kue coklat dengan rasa manis dan gurih, dibalut pula dengan saus coklat yang nikmat, memanjakan lidah kamu.</p>
-                                <div className="card-actions justify-end">
-                                <div className="badge badge-outline">Cake</div> 
-                                <div className="badge badge-outline">Chocolate</div>
-                                </div>
-                            </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
             </React.Fragment>
