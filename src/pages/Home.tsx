@@ -67,9 +67,9 @@ interface State {
     selectedCategories: string[];
   }
 
-export default class Home extends React.Component<string, State>{
+export default class Home extends React.Component<object, State>{
 
-    constructor(props: string){
+    constructor(props: object){
         super(props);
         this.state = {
             selectedTags: [],
