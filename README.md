@@ -1,5 +1,6 @@
 # Demo
-https://zippy-semolina-67b9f0.netlify.app
+
+https://zippy-semolina-67b9f0.netlify.app/
 
 # React + TypeScript + Vite
 

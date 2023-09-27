@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 
-//DummyData
-interface DummyItem {
+//API-Data
+interface ApiItem {
     id: number;
     name: string;
     badge: string;
@@ -11,70 +11,31 @@ interface DummyItem {
     imageUrl: string;
 }
 
-const dummyData: DummyItem[] = [
-    {
-      id: 1,
-      name: 'American Heritage Chocolate',
-      badge: 'NEW',
-      description: 'Kue dengan citarasa ala Amerika, dibalut dengan coklat yang lumer dan kaya, dan dibuat dengan bahan - bahan pilihan.',
-      categories: ['Cake', 'Chocolate'],
-      imageUrl: 'https://micro-frontend-one.vercel.app/american-heritage-chocolate-vdx5hPQhXFk-unsplash.jpg',
-    },
-    {
-      id: 2,
-      name: 'White Bread',
-      badge: 'NEW',
-      description: 'Roti tawar yang gak bisa di tawar harganya tapi bisa ditaburi dengan meses ataupun selai agar rasanya semakin gurih dan manis, cocok untuk sarapan pagi.',
-      categories: ['Breads'],
-      imageUrl: 'https://micro-frontend-one.vercel.app/charles-chen-w2ZFjDnUL3w-unsplash.jpg',
-    },
-    {
-      id: 3,
-      name: 'Chocolate Cake',
-      badge: 'NEW',
-      description: 'Kue coklat dengan rasa manis dan gurih, dibalut pula dengan saus coklat yang nikmat, memanjakan lidah kamu.',
-      categories: ['Cake', 'Chocolate'],
-      imageUrl: 'https://micro-frontend-one.vercel.app/chocolate-cake-with-chocolate-sprinkles.jpg',
-    },
-    {
-        id: 4,
-        name: 'Croissants',
-        badge: 'NEW',
-        description: 'Kue dengan rasa yang renyah dan gurih, pilihan yang menarik dipadukan dengan kopi ataupun teh, rasa yang dapat memanjakan lidah.',
-        categories: ['Bread', 'Favorite'],
-        imageUrl: 'https://micro-frontend-one.vercel.app/conor-brown-sqkXyyj4WdE-unsplash.jpg',
-    },
-    {
-        id: 5,
-        name: 'Strawberry Shortcake',
-        badge: 'NEW',
-        description: 'Kue manis dengan baluran saus stroberi yang manis, membuat rasanya menggugah selera, kue yang layak dijadikan buah tangan.',
-        categories: ['Bread', 'New'],
-        imageUrl: 'https://micro-frontend-one.vercel.app/cute-mini-strawberry-shortcake-pink.jpg',
-    },
-    {
-        id: 5,
-        name: 'Mie Goreng Pedas',
-        badge: 'NEW',
-        description: 'Makanan yang bisa kamu jadikan cemilan ataupun penghilang rasa lapar, cocok untuk kamu yang malas memasak dan ingin yang instan.',
-        categories: ['Bread', 'Favorite'],
-        imageUrl: 'https://micro-frontend-one.vercel.app/ikhsan-baihaqi-RwAXb8Hv_sU-unsplash.jpg',
-    }
-];
-
 interface State {
     selectedTags: string[];
     selectedCategories: string[];
-  }
+    apiData: ApiItem[];
+}
 
-export default class Home extends React.Component<object, State>{
-
-    constructor(props: object){
+export default class Home extends Component<object, State> {
+    constructor(props: object) {
         super(props);
         this.state = {
             selectedTags: [],
-            selectedCategories:[],
-        }
+            selectedCategories: [],
+            apiData: [],
+        };
+    }
+
+    componentDidMount() {
+        fetch('https://api.npoint.io/624c99ed50dcd45fb160')
+            .then((response) => response.json())
+            .then((data: ApiItem[]) => {
+                this.setState({ apiData: data });
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+            });
     }
 
     handleSubmit(e: React.FormEvent<HTMLButtonElement>) {
@@ -199,7 +160,7 @@ export default class Home extends React.Component<object, State>{
                     {/* Card */}
                     <div className='flex flex-wrap flex-row space-x-12 justify-center mb-20 ml-5 mr-5'>
                     {/* Loop melalui data dummy dan render card untuk setiap objek */}
-                    {dummyData.map((item) => (
+                    {this.state.apiData.map((item) => (
                         <div key={item.id} className="card w-96 bg-base-100 shadow-xl mt-10">
                             <figure>
                                 <img src={item.imageUrl} alt={item.name} />
