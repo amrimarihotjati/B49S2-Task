@@ -12,11 +12,10 @@ import {
 export default class Navbar extends React.Component {
   render() {
     return (
-    <Flex as='nav' p='10px' alignItems='center'>
-        <Heading as={'h1'}>Cakes Tasks</Heading>
+    <Flex flexWrap='wrap' as='nav' p='10px' alignItems='center'>
+        <Heading as={'h1'}>Cakes Menu</Heading>
         <Spacer/>
-
-        <HStack>
+        <HStack flexWrap='wrap'>
             <Box bg={'gray.200'} p={'10px'}>M</Box>
             <Text>amrimarihotjati@gmail.com</Text>
             <Button colorScheme='purple'>Logout</Button>
