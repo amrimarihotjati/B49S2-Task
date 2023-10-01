@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {
     Flex,
     Box,
@@ -9,7 +9,7 @@ import {
     HStack
 } from '@chakra-ui/react'
 
-export default class Navbar extends Component {
+export default class Navbar extends React.Component {
   render() {
     return (
     <Flex as='nav' p='10px' alignItems='center'>

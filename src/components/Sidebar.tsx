@@ -1,5 +1,5 @@
 
-import React, { Component } from 'react'
+import React from 'react'
 import {
     List,
     ListItem,
@@ -10,7 +10,7 @@ import { NavLink } from 'react-router-dom';
 import { CalendarIcon, AddIcon, AtSignIcon} from '@chakra-ui/icons';
 
 
-export default class Sidebar extends Component {
+export default class Sidebar extends React.Component {
   render() {
     return (
       <List color='white' fontSize='1.2em' spacing={4}>
